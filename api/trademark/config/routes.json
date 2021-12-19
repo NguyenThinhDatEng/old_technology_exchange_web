@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/trademarks",
+      "handler": "trademark.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/trademarks/count",
+      "handler": "trademark.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/trademarks/:id",
+      "handler": "trademark.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/trademarks",
+      "handler": "trademark.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/trademarks/:id",
+      "handler": "trademark.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/trademarks/:id",
+      "handler": "trademark.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

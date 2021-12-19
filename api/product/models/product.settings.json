@@ -1,0 +1,75 @@
+{
+  "kind": "collectionType",
+  "collectionName": "products",
+  "info": {
+    "name": "product",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "maxLength": 100
+    },
+    "price": {
+      "type": "float",
+      "required": true,
+      "default": 0
+    },
+    "trademark": {
+      "model": "trademark",
+      "via": "products"
+    },
+    "describe": {
+      "type": "text",
+      "default": "nothing"
+    },
+    "avatar": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": true,
+      "pluginOptions": {}
+    },
+    "related_images": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
+    },
+    "category": {
+      "private": true,
+      "model": "category",
+      "via": "products"
+    },
+    "other_attributes": {
+      "type": "dynamiczone",
+      "components": [
+        "other-attributes.for-laptop",
+        "other-attributes.for-phone",
+        "other-attributes.for-tablet"
+      ]
+    },
+    "users_permissions_users": {
+      "columnName": "care with",
+      "targetColumnName": "interested by",
+      "plugin": "users-permissions",
+      "collection": "user",
+      "via": "products",
+      "dominant": true
+    }
+  }
+}

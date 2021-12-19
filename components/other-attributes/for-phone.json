@@ -1,0 +1,44 @@
+{
+  "collectionName": "components_other_attributes_for_phones",
+  "info": {
+    "name": "for_phone",
+    "icon": "mobile",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "sweep_frequency": {
+      "type": "enumeration",
+      "enum": [
+        "_60Hz",
+        "_90Hz",
+        "_120Hz",
+        "_144Hz"
+      ]
+    },
+    "ram": {
+      "type": "enumeration",
+      "enum": [
+        "less_than_4GB",
+        "from_4_to_6GB",
+        "from_8_to_12GB",
+        "more_than_12GB"
+      ]
+    },
+    "memory": {
+      "type": "enumeration",
+      "enum": [
+        "both_32_and_64GB",
+        "both_128_and_256GB",
+        "more_than_512GB"
+      ]
+    },
+    "screen_size": {
+      "type": "enumeration",
+      "enum": [
+        "less_than_6_inch",
+        "more_than_6_inch"
+      ]
+    }
+  }
+}

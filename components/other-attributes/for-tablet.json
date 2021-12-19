@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_other_attributes_for_tablets",
+  "info": {
+    "name": "for_tablet",
+    "icon": "tablet-alt"
+  },
+  "options": {},
+  "attributes": {
+    "use_demand": {
+      "type": "enumeration",
+      "enum": [
+        "playing_game",
+        "studying_and_office",
+        "entertainment",
+        "graphics_and_creativity"
+      ]
+    },
+    "operating_system": {
+      "type": "enumeration",
+      "enum": [
+        "Android",
+        "iPadOS"
+      ]
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "kind": "collectionType",
+  "collectionName": "trademarks",
+  "info": {
+    "name": "trademark"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "categories": {
+      "collection": "category",
+      "via": "trademarks",
+      "dominant": true
+    },
+    "title": {
+      "type": "string"
+    },
+    "products": {
+      "via": "trademark",
+      "collection": "product"
+    }
+  }
+}
