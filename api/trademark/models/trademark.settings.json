@@ -2,7 +2,8 @@
   "kind": "collectionType",
   "collectionName": "trademarks",
   "info": {
-    "name": "trademark"
+    "name": "trademark",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -17,7 +18,9 @@
       "dominant": true
     },
     "title": {
-      "type": "string"
+      "type": "string",
+      "unique": true,
+      "required": true
     },
     "products": {
       "via": "trademark",

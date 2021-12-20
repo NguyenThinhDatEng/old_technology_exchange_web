@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_other_attributes_for_smart_watches",
+  "info": {
+    "name": "for_smart_watch",
+    "icon": "stopwatch",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "watch_face_size": {
+      "type": "enumeration",
+      "enum": [
+        "for_male",
+        "for_female",
+        "both_male_and_female"
+      ]
+    },
+    "watch_case": {
+      "type": "enumeration",
+      "enum": [
+        "aluminum",
+        "steel"
+      ]
+    }
+  }
+}

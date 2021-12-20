@@ -23,8 +23,8 @@
       "default": 0
     },
     "trademark": {
-      "model": "trademark",
-      "via": "products"
+      "via": "products",
+      "model": "trademark"
     },
     "describe": {
       "type": "text",
@@ -60,7 +60,8 @@
       "components": [
         "other-attributes.for-laptop",
         "other-attributes.for-phone",
-        "other-attributes.for-tablet"
+        "other-attributes.for-tablet",
+        "other-attributes.for-smart-watch"
       ]
     },
     "users_permissions_users": {
