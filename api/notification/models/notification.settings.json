@@ -20,6 +20,10 @@
     "content": {
       "type": "text",
       "required": true
+    },
+    "notification_lists": {
+      "via": "notification",
+      "collection": "notification-list"
     }
   }
 }

@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "carings",
+  "info": {
+    "name": "caring"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "users_permissions_user": {
+      "via": "carings",
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "product": {
+      "via": "carings",
+      "model": "product"
+    }
+  }
+}

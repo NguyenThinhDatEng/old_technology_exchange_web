@@ -64,13 +64,14 @@
         "other-attributes.for-smart-watch"
       ]
     },
-    "users_permissions_users": {
-      "columnName": "care with",
-      "targetColumnName": "interested by",
-      "plugin": "users-permissions",
-      "collection": "user",
+    "carings": {
+      "via": "product",
+      "collection": "caring"
+    },
+    "user": {
       "via": "products",
-      "dominant": true
+      "plugin": "users-permissions",
+      "model": "user"
     }
   }
 }

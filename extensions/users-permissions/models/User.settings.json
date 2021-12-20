@@ -59,9 +59,6 @@
       "plugin": "users-permissions",
       "configurable": false
     },
-    "notifications": {
-      "collection": "notification"
-    },
     "gender": {
       "type": "enumeration",
       "enum": [
@@ -69,10 +66,17 @@
         "female"
       ]
     },
+    "carings": {
+      "via": "users_permissions_user",
+      "collection": "caring"
+    },
+    "notification_lists": {
+      "via": "users_permissions_user",
+      "collection": "notification-list"
+    },
     "products": {
-      "via": "users_permissions_users",
-      "columnName": "interested by",
-      "collection": "product"
+      "collection": "product",
+      "via": "user"
     }
   }
 }

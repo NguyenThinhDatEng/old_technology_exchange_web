@@ -1,0 +1,24 @@
+{
+  "kind": "collectionType",
+  "collectionName": "notification_lists",
+  "info": {
+    "name": "notification_list"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "notification": {
+      "via": "notification_lists",
+      "model": "notification"
+    },
+    "users_permissions_user": {
+      "via": "notification_lists",
+      "plugin": "users-permissions",
+      "model": "user"
+    }
+  }
+}
