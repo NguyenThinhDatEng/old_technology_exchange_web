@@ -1,0 +1,68 @@
+{
+  "routes": [
+    {
+      "method": "POST",
+      "path": "/customers/signup",
+      "handler": "customer.signup",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/customers/login",
+      "handler": "customer.login",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/customers",
+      "handler": "customer.find",
+      "config": {
+        "policies": ["global::public"]
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/customers/count",
+      "handler": "customer.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/customers/:id",
+      "handler": "customer.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/customers",
+      "handler": "customer.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/customers/:id",
+      "handler": "customer.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/customers/:id",
+      "handler": "customer.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

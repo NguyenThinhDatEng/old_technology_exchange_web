@@ -10,7 +10,7 @@ const HomePage = ({ global: { plugins }, history: { push } }) => {
       <Container className="container-fluid">
         <div className="row">
           <div className="col-12">
-            <Block>Hi {name?.firstname}!</Block>
+            <Block>welcome back {name?.firstname}!</Block>
           </div>
         </div>
       </Container>
