@@ -13,7 +13,8 @@
       "createdAt",
       "updatedAt",
       "id"
-    ]
+    ],
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -37,9 +38,6 @@
       "type": "password",
       "required": true
     },
-    "dateOfBirth": {
-      "type": "date"
-    },
     "avatar": {
       "model": "file",
       "via": "related",
@@ -47,6 +45,7 @@
         "images"
       ],
       "plugin": "upload",
+      "required": false,
       "pluginOptions": {}
     },
     "loyal": {
@@ -59,6 +58,14 @@
         "Male",
         "Female"
       ]
+    },
+    "notifications": {
+      "via": "customer",
+      "collection": "notification"
+    },
+    "carings": {
+      "collection": "caring",
+      "via": "customer"
     }
   }
 }

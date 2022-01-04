@@ -11,14 +11,13 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "users_permissions_user": {
-      "via": "carings",
-      "plugin": "users-permissions",
-      "model": "user"
-    },
     "product": {
       "via": "carings",
       "model": "product"
+    },
+    "customer": {
+      "via": "carings",
+      "model": "customer"
     }
   }
 }

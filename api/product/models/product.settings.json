@@ -68,10 +68,9 @@
       "via": "product",
       "collection": "caring"
     },
-    "user": {
-      "via": "products",
-      "plugin": "users-permissions",
-      "model": "user"
+    "comments": {
+      "via": "product",
+      "collection": "comment"
     }
   }
 }

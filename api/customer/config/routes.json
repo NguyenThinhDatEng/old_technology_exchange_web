@@ -2,6 +2,22 @@
   "routes": [
     {
       "method": "POST",
+      "path": "/customers/checkEmail",
+      "handler": "customer.findOneByEmail",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/customers/resetPassWord",
+      "handler": "customer.resetPassWord",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
       "path": "/customers/signup",
       "handler": "customer.signup",
       "config": {
@@ -60,6 +76,14 @@
       "method": "DELETE",
       "path": "/customers/:id",
       "handler": "customer.delete",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/customers/changePassword",
+      "handler": "customer.changePassword",
       "config": {
         "policies": []
       }

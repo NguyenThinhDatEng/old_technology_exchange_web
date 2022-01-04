@@ -58,25 +58,6 @@
       "via": "users",
       "plugin": "users-permissions",
       "configurable": false
-    },
-    "gender": {
-      "type": "enumeration",
-      "enum": [
-        "male",
-        "female"
-      ]
-    },
-    "carings": {
-      "via": "users_permissions_user",
-      "collection": "caring"
-    },
-    "notification_lists": {
-      "via": "users_permissions_user",
-      "collection": "notification-list"
-    },
-    "products": {
-      "collection": "product",
-      "via": "user"
     }
   }
 }
