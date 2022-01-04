@@ -87,6 +87,14 @@
       "config": {
         "policies": []
       }
+    },
+    {
+      "method": "POST",
+      "path": "/customers/verifyOTP",
+      "handler": "customer.verifyOTP",
+      "config": {
+        "policies": []
+      }
     }
   ]
 }

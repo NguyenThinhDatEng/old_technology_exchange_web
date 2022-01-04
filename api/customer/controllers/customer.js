@@ -120,31 +120,42 @@ const signUp = async (ctx) => {
 };
 
 const resetPassWord = async (ctx) => {
-  const { email, otp } = ctx.request.body;
+  const { email } = ctx.request.body;
+  if (!email)
+    return Response.notFound(ctx, {
+      msg: "Missing parameter input!",
+      status: 400,
+    });
+  let user = null;
   try {
-    const user = await strapi.services.customer.findOneEmail(email);
-    if (user) {
-      const OTP = strapi.services.customer.generateOTP();
-      try {
-        await strapi.services.customer.updateOTP(email, OTP);
-        strapi.services.email.send(
-          process.env.user,
-          email,
-          "Code Verification",
-          `Your password reset otp is ${OTP}`
-        );
-        return Response.ok(ctx, {
-          status: 200,
-          msg: `Successfully`,
-          data: email,
-        });
-      } catch (error) {
-        console.log(error);
-      }
-    }
+    user = await strapi.services.customer.findOneEmail(email);
+  } catch (error) {
+    console.log(error);
+    return Response.internalServerError(ctx, {
+      status: 500,
+      msg: "Error Server",
+    });
+  }
+  if (!user) {
     return Response.badRequest(ctx, {
       status: 400,
       msg: "Not Found",
+    });
+  }
+
+  const OTP = strapi.services.customer.generateOTP();
+  try {
+    await strapi.services.customer.updateOTP(email, OTP);
+    strapi.services.email.send(
+      process.env.user,
+      email,
+      "Code Verification",
+      `Your password reset otp is ${OTP}`
+    );
+    return Response.ok(ctx, {
+      status: 200,
+      msg: `Successfully`,
+      data: email,
     });
   } catch (error) {
     console.log(error);
@@ -155,8 +166,42 @@ const resetPassWord = async (ctx) => {
   }
 };
 
+const verifyOTP = async (ctx) => {
+  const { email, OTP } = ctx.request.body;
+  if (!OTP)
+    return Response.notFound(ctx, {
+      msg: "Missing parameter input!",
+      status: 400,
+    });
+  let user = null;
+  try {
+    user = await strapi.services.customer.findOneEmail(email);
+  } catch (error) {
+    console.log(error);
+    return Response.internalServerError(ctx, {
+      status: 500,
+      msg: "Error Server",
+    });
+  }
+  if (user.OTP === OTP)
+    return Response.ok(ctx, {
+      msg: "OK",
+      status: 200,
+      data: { email, OTP },
+    });
+  return Response.conflict(ctx, {
+    msg: `You've entered incorrect OTP code`,
+    status: 409,
+  });
+};
+
 const changePassword = async (ctx) => {
   const { email, password, newPassword } = ctx.request.body;
+  if (!email || !password || !newPassword)
+    return Response.notFound(ctx, {
+      msg: "Missing parameter input!",
+      status: 400,
+    });
   let user = null;
   try {
     user = await strapi.services.customer.checkLogin(email, password);
@@ -168,8 +213,8 @@ const changePassword = async (ctx) => {
   }
   if (!user) {
     return Response.notFound(ctx, {
-      msg: "Your password is wrong",
-      status: 400,
+      msg: "User account or password incorrect",
+      status: 404,
     });
   }
   try {
@@ -182,7 +227,7 @@ const changePassword = async (ctx) => {
   }
   return Response.ok(ctx, {
     msg: "Updated password successfully!",
-    data: newPassword,
+    data: { email },
     status: 200,
   });
 };
@@ -193,4 +238,5 @@ module.exports = {
   signup: signUp,
   login: logIn,
   findOneByEmail: findOneByEmail,
+  verifyOTP: verifyOTP,
 };
