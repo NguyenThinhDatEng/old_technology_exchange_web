@@ -7,7 +7,7 @@
   "options": {
     "increments": true,
     "timestamps": true,
-    "draftAndPublish": false
+    "populateCreatorFields": false
   },
   "pluginOptions": {},
   "attributes": {

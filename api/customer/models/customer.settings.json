@@ -8,12 +8,7 @@
   "options": {
     "increments": true,
     "configurable": false,
-    "privateAttributes": [
-      "__v",
-      "createdAt",
-      "updatedAt",
-      "id"
-    ],
+    "privateAttributes": ["__v", "createdAt", "updatedAt", "id"],
     "draftAndPublish": false
   },
   "pluginOptions": {},
@@ -21,7 +16,6 @@
     "username": {
       "type": "string",
       "required": true,
-      "unique": true,
       "maxLength": 50
     },
     "email": {
@@ -41,19 +35,14 @@
     "avatar": {
       "model": "file",
       "via": "related",
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
     },
     "gender": {
       "type": "enumeration",
-      "enum": [
-        "Male",
-        "Female"
-      ]
+      "enum": ["Male", "Female"]
     },
     "notifications": {
       "via": "customer",

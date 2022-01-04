@@ -69,20 +69,20 @@ const signUp = async (ctx) => {
 
   let user = null;
   try {
-    const user = await strapi.services.customer.findOneEmail(email);
+    user = await strapi.services.customer.findOneEmail(email);
   } catch (error) {
     console.log(error);
     return Response.internalServerError(ctx, {
       data: null,
       msg: `Server Error`,
-      status: 0,
+      status: 500,
     });
   }
 
   if (user)
     return Response.notAcceptable(ctx, {
       msg: `${email} already exists. Please try a different email`,
-      status: 0,
+      status: 406,
     });
 
   try {
