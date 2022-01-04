@@ -24,9 +24,22 @@ const findOneByEmail = async (ctx) => {
 
 const logIn = async (ctx) => {
   const { email, password } = ctx.request.body;
-  const user = await strapi
-    .query(`customer`)
-    .findOne({ email, password }, ["customer.email", "customer.id"]);
+  if (!email || !password)
+    return Response.notFound(ctx, {
+      msg: "Missing parameter input!",
+      status: 400,
+    });
+  let user = null;
+  try {
+    user = await strapi.query(`customer`).findOne({ email, password });
+  } catch (error) {
+    console.log(error);
+    return Response.internalServerError(ctx, {
+      data: null,
+      msg: `Server Error`,
+      status: 0,
+    });
+  }
   if (user) {
     let data = {
       id: user.id,
@@ -46,18 +59,44 @@ const logIn = async (ctx) => {
 };
 
 const signUp = async (ctx) => {
-  const { username, email, password, gender, dateOfBirth, phoneNumber } =
-    ctx.request.body;
-  console.log(ctx.request.body);
-  const emailCheck = await strapi.query(`customer`).findOne({ email });
-  if (emailCheck)
+  const { username, email, password, gender, phoneNumber } = ctx.request.body;
+
+  if (!username || !email || !password || !gender || !phoneNumber)
+    return Response.notFound(ctx, {
+      msg: "Missing parameter input!",
+      status: 400,
+    });
+
+  let user = null;
+  try {
+    const user = await strapi.services.customer.findOneEmail(email);
+  } catch (error) {
+    console.log(error);
+    return Response.internalServerError(ctx, {
+      data: null,
+      msg: `Server Error`,
+      status: 0,
+    });
+  }
+
+  if (user)
     return Response.notAcceptable(ctx, {
       msg: `${email} already exists. Please try a different email`,
       status: 0,
     });
-  const user = await strapi
-    .query(`customer`)
-    .create({ username, email, password, gender, dateOfBirth, phoneNumber });
+
+  try {
+    user = await strapi
+      .query(`customer`)
+      .create({ username, email, password, gender, phoneNumber });
+  } catch (error) {
+    console.log(error);
+    return Response.internalServerError(ctx, {
+      data: null,
+      msg: `Server Error`,
+      status: 0,
+    });
+  }
   if (user) {
     let data = {
       id: user.id,
@@ -70,13 +109,13 @@ const signUp = async (ctx) => {
     return Response.created(ctx, {
       data: data,
       msg: `OK`,
-      status: 1,
+      status: 201,
     });
   }
   return Response.internalServerError(ctx, {
     data: null,
     msg: `Server Error`,
-    status: 0,
+    status: 500,
   });
 };
 
