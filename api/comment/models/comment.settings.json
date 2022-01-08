@@ -2,19 +2,27 @@
   "kind": "collectionType",
   "collectionName": "comments",
   "info": {
-    "name": "comment"
+    "name": "comment",
+    "description": ""
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": true,
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
     "content": {
-      "type": "text"
+      "type": "text",
+      "maxLength": 200,
+      "required": true
     },
     "product": {
       "model": "product",
+      "via": "comments"
+    },
+    "customer": {
+      "model": "customer",
       "via": "comments"
     }
   }

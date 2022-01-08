@@ -17,4 +17,9 @@ const createReportChangePassword = async (id) => {
     .create({ action, content, customer: id });
 };
 
+const createReportComment = async (username, productName, content) => {
+  const action = "Care";
+  // const content = `${username} care`
+};
+
 module.exports = { createReportSignUp, createReportChangePassword };

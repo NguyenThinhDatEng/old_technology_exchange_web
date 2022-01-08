@@ -58,12 +58,12 @@
       "via": "customer",
       "collection": "notification"
     },
-    "carings": {
-      "collection": "caring",
-      "via": "customer"
-    },
     "OTP": {
       "type": "string"
+    },
+    "comments": {
+      "via": "customer",
+      "collection": "comment"
     }
   }
 }

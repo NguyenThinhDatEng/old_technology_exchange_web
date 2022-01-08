@@ -64,10 +64,6 @@
         "other-attributes.for-smart-watch"
       ]
     },
-    "carings": {
-      "via": "product",
-      "collection": "caring"
-    },
     "comments": {
       "via": "product",
       "collection": "comment"
