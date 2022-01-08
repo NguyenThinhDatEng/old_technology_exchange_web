@@ -1,5 +1,4 @@
-'use strict';
-
+"use strict";
 
 /**
  * HTTP Status codes
@@ -26,19 +25,19 @@ const STATUS_CODES = {
   NOT_IMPLEMENTED: 501,
   BAD_GATEWAY: 502,
   SERVICE_UNAVAILABLE: 503,
-  GATEWAY_TIMEOUT: 504
+  GATEWAY_TIMEOUT: 504,
 };
 
-const toResponse = (statusCode, params = {}) => {
-  const { data = null, msg = null, status = 0, meta } = params;
+const toResponse = (status, params = {}) => {
+  const { data = null, message = null, statusCode = 0, meta } = params;
   const result = {
-    status,
+    statusCode,
     data,
-    msg
+    message,
   };
 
   if (meta) {
-    result["meta"] = meta
+    result["meta"] = meta;
   }
 
   return result;

@@ -25,6 +25,10 @@ const updatePassword = async function (email, newPassword) {
     .update({ email }, { password: newPassword });
 };
 
+const resetPassword = async function (id, password) {
+  return await strapi.query("customer").update({ id }, { password });
+};
+
 const checkLogin = async function (email, password) {
   return await strapi.query("customer").findOne({ email, password });
 };
@@ -35,4 +39,5 @@ module.exports = {
   updateOTP,
   updatePassword,
   checkLogin,
+  resetPassword,
 };

@@ -2,89 +2,13 @@
 require("dotenv").config();
 const Response = require(`../../../utils/response`);
 
-const findOneByEmail = async (ctx) => {
-  const { email } = ctx.request.body;
-  try {
-    const user = await strapi.services.customer.findOneEmail(email);
-    if (user) {
-      return Response.ok(ctx, { data: user.id, msg: "OK", status: 200 });
-    }
-    return Response.badRequest(ctx, {
-      status: 400,
-      msg: `${email} does not exist`,
-    });
-  } catch (error) {
-    console.log(error);
-    return Response.internalServerError(ctx, {
-      status: 500,
-      msg: "Error in Server",
-    });
-  }
-};
-
-const logIn = async (ctx) => {
-  const { email, password } = ctx.request.body;
-  if (!email || !password)
-    return Response.notFound(ctx, {
-      msg: "Missing parameter input!",
-      status: 400,
-    });
-  let user = null;
-  try {
-    user = await strapi.query(`customer`).findOne({ email, password });
-  } catch (error) {
-    console.log(error);
-    return Response.internalServerError(ctx, {
-      data: null,
-      msg: `Server Error`,
-      status: 0,
-    });
-  }
-  if (user) {
-    let notification = null;
-    try {
-      notification = await strapi
-        .query("notification")
-        .findOne({ action: "Sign in" });
-    } catch (error) {
-      console.log(error);
-      return Response.internalServerError(ctx, {
-        data: null,
-        msg: `Server Error`,
-        status: 0,
-      });
-    }
-    // creat a new notification
-    await strapi.query("notification").create({
-      action: notification.action,
-      customer: user.id,
-      content: notification.content,
-    });
-    // create a response
-    let data = {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-      gender: user.gender,
-      dateOfBirth: user.dateOfBirth,
-      phoneNumber: user.phoneNumber,
-    };
-    return Response.ok(ctx, { data: data, msg: `OK`, status: 1 });
-  }
-  return Response.ok(ctx, {
-    data: null,
-    msg: `User account or password incorrect`,
-    status: 0,
-  });
-};
-
 const signUp = async (ctx) => {
   const { username, email, password, gender, phoneNumber } = ctx.request.body;
 
   if (!username || !email || !password || !gender || !phoneNumber)
     return Response.notFound(ctx, {
-      msg: "Missing parameter input!",
-      status: 400,
+      message: "Missing parameter input!",
+      statusCode: 400,
     });
 
   let user = null;
@@ -94,15 +18,15 @@ const signUp = async (ctx) => {
     console.log(error);
     return Response.internalServerError(ctx, {
       data: null,
-      msg: `Server Error`,
-      status: 500,
+      message: `Server Error`,
+      statusCode: 500,
     });
   }
 
   if (user)
     return Response.notAcceptable(ctx, {
-      msg: `${email} already exists. Please try a different email`,
-      status: 406,
+      message: `${email} already exists. Please try a different email`,
+      statusCode: 406,
     });
 
   try {
@@ -113,27 +37,19 @@ const signUp = async (ctx) => {
     console.log(error);
     return Response.internalServerError(ctx, {
       data: null,
-      msg: `Server Error`,
-      status: 0,
+      message: `Server Error`,
+      statusCode: 0,
     });
   }
   if (user) {
     try {
-      const notification = await strapi
-        .query("notification")
-        .findOne({ action: "Sign up" });
-      // creat a new notification
-      await strapi.query("notification").create({
-        action: notification.action,
-        customer: user.id,
-        content: notification.content,
-      });
+      await strapi.services.notification.createReportSignUp(user.id);
     } catch (error) {
       console.log(error);
       return Response.internalServerError(ctx, {
         data: null,
-        msg: `Server Error`,
-        status: 0,
+        message: `Server Error`,
+        statusCode: 0,
       });
     }
 
@@ -146,23 +62,65 @@ const signUp = async (ctx) => {
     };
     return Response.created(ctx, {
       data: data,
-      msg: `OK`,
-      status: 201,
+      message: `Signed up successfully`,
+      statusCode: 201,
     });
   }
   return Response.internalServerError(ctx, {
     data: null,
-    msg: `Server Error`,
-    status: 500,
+    message: `Server Error`,
+    statusCode: 500,
   });
 };
 
-const resetPassWord = async (ctx) => {
+const logIn = async (ctx) => {
+  const { email, password } = ctx.request.body;
+  if (!email || !password)
+    return Response.notFound(ctx, {
+      message: "Missing parameter input!",
+      statusCode: 400,
+    });
+
+  let user = null;
+  try {
+    user = await strapi.query(`customer`).findOne({ email, password });
+  } catch (error) {
+    console.log(error);
+    return Response.internalServerError(ctx, {
+      data: null,
+      message: `Server Error`,
+      statusCode: 0,
+    });
+  }
+  if (user) {
+    // create a response
+    let data = {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      gender: user.gender,
+      dateOfBirth: user.dateOfBirth,
+      phoneNumber: user.phoneNumber,
+    };
+    return Response.ok(ctx, {
+      data: data,
+      message: `Signed in successfully`,
+      statusCode: 1,
+    });
+  }
+  return Response.ok(ctx, {
+    data: null,
+    message: `User account or password incorrect!`,
+    statusCode: 0,
+  });
+};
+
+const forgotPassword = async (ctx) => {
   const { email } = ctx.request.body;
   if (!email)
     return Response.notFound(ctx, {
-      msg: "Missing parameter input!",
-      status: 400,
+      message: "Missing parameter input!",
+      statusCode: 400,
     });
   let user = null;
   try {
@@ -170,14 +128,15 @@ const resetPassWord = async (ctx) => {
   } catch (error) {
     console.log(error);
     return Response.internalServerError(ctx, {
-      status: 500,
-      msg: "Error Server",
+      statusCode: 500,
+      message: "Error Server",
     });
   }
+
   if (!user) {
     return Response.badRequest(ctx, {
-      status: 400,
-      msg: "Not Found",
+      statusCode: 400,
+      message: "Not Found",
     });
   }
 
@@ -191,15 +150,15 @@ const resetPassWord = async (ctx) => {
       `Your password reset otp is ${OTP}`
     );
     return Response.ok(ctx, {
-      status: 200,
-      msg: `Successfully`,
+      statusCode: 200,
+      message: `OK`,
       data: email,
     });
   } catch (error) {
     console.log(error);
     return Response.internalServerError(ctx, {
-      status: 500,
-      msg: "Error Server",
+      statusCode: 500,
+      message: "Error Server",
     });
   }
 };
@@ -208,28 +167,74 @@ const verifyOTP = async (ctx) => {
   const { email, OTP } = ctx.request.body;
   if (!OTP)
     return Response.notFound(ctx, {
-      msg: "Missing parameter input!",
-      status: 400,
+      message: "Missing parameter input!",
+      statusCode: 400,
     });
+
   let user = null;
   try {
     user = await strapi.services.customer.findOneEmail(email);
   } catch (error) {
     console.log(error);
     return Response.internalServerError(ctx, {
-      status: 500,
-      msg: "Error Server",
+      statusCode: 500,
+      message: "Server Error",
     });
   }
   if (user.OTP === OTP)
     return Response.ok(ctx, {
-      msg: "OK",
-      status: 200,
+      message: "OK",
+      statusCode: 200,
       data: { email, OTP },
     });
   return Response.conflict(ctx, {
-    msg: `You've entered incorrect OTP code`,
-    status: 409,
+    message: `You've entered incorrect OTP code`,
+    statusCode: 409,
+  });
+};
+
+const resetPassword = async (ctx) => {
+  const { password } = ctx.request.body;
+  const url = ctx.request.url.split("/");
+  const id = url[url.length - 1];
+  if (!password)
+    return Response.notFound(ctx, {
+      message: "Missing parameter input!",
+      statusCode: 400,
+    });
+
+  let user = null;
+  try {
+    user = await strapi.services.customer.resetPassword(id, password);
+  } catch (error) {
+    console.log(error);
+    return Response.internalServerError(ctx, {
+      statusCode: 500,
+      message: "Server Error",
+    });
+  }
+  if (!user) {
+    return Response.notFound(ctx, {
+      message: `${id} doesn't exist`,
+      statusCode: 400,
+    });
+  }
+
+  // create notification
+  try {
+    await strapi.services.notification.createReportChangePassword(id);
+  } catch (error) {
+    console.log(error);
+    return Response.internalServerError(ctx, {
+      statusCode: 500,
+      message: "Server Error",
+    });
+  }
+  // successful
+  return Response.ok(ctx, {
+    message: "OK",
+    statusCode: 200,
+    data: { email: user.email, username: user.username },
   });
 };
 
@@ -237,62 +242,54 @@ const changePassword = async (ctx) => {
   const { email, password, newPassword } = ctx.request.body;
   if (!email || !password || !newPassword)
     return Response.notFound(ctx, {
-      msg: "Missing parameter input!",
-      status: 400,
+      message: "Missing parameter input!",
+      statusCode: 400,
     });
   let user = null;
   try {
     user = await strapi.services.customer.checkLogin(email, password);
   } catch (error) {
     return Response.internalServerError(ctx, {
-      msg: "Server Error",
-      status: 500,
+      message: "Server Error",
+      statusCode: 500,
     });
   }
   if (!user) {
     return Response.notFound(ctx, {
-      msg: "User account or password incorrect",
-      status: 404,
+      message: "User account or password incorrect",
+      statusCode: 404,
     });
   }
   try {
     await strapi.services.customer.updatePassword(email, newPassword);
   } catch (error) {
     return Response.internalServerError(ctx, {
-      msg: "Server Error",
-      status: 500,
+      message: "Server Error",
+      statusCode: 500,
     });
   }
   try {
-    const notification = await strapi
-      .query("notification")
-      .findOne({ action: "Change password" });
-    // creat a new notification
-    await strapi.query("notification").create({
-      action: notification.action,
-      customer: user.id,
-      content: notification.content,
-    });
+    await strapi.services.notification.createReportChangePassword(user.id);
   } catch (error) {
     console.log(error);
     return Response.internalServerError(ctx, {
       data: null,
-      msg: `Server Error`,
-      status: 0,
+      message: `Server Error`,
+      statusCode: 0,
     });
   }
   return Response.ok(ctx, {
-    msg: "Updated password successfully!",
+    message: "Updated password successfully!",
     data: { email },
-    status: 200,
+    statusCode: 200,
   });
 };
 
 module.exports = {
   changePassword: changePassword,
-  resetPassWord: resetPassWord,
+  forgotPassword: forgotPassword,
   signup: signUp,
   login: logIn,
-  findOneByEmail: findOneByEmail,
   verifyOTP: verifyOTP,
+  resetPassword: resetPassword,
 };

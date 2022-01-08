@@ -1,17 +1,17 @@
 {
   "routes": [
     {
-      "method": "POST",
-      "path": "/customers/checkEmail",
-      "handler": "customer.findOneByEmail",
+      "method": "PUT",
+      "path": "/customers/resetPassword/:id",
+      "handler": "customer.resetPassword",
       "config": {
         "policies": []
       }
     },
     {
       "method": "POST",
-      "path": "/customers/resetPassWord",
-      "handler": "customer.resetPassWord",
+      "path": "/customers/forgotPassword",
+      "handler": "customer.forgotPassword",
       "config": {
         "policies": []
       }
