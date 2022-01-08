@@ -71,6 +71,10 @@
     "comments": {
       "via": "product",
       "collection": "comment"
+    },
+    "notification": {
+      "via": "product",
+      "model": "notification"
     }
   }
 }

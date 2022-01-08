@@ -8,11 +8,11 @@
   "options": {
     "increments": true,
     "timestamps": true,
-    "draftAndPublish": true
+    "populateCreatorFields": false
   },
   "pluginOptions": {},
   "attributes": {
-    "title": {
+    "action": {
       "type": "string",
       "required": true,
       "maxLength": 50
@@ -24,6 +24,10 @@
     "customer": {
       "via": "notifications",
       "model": "customer"
+    },
+    "product": {
+      "model": "product",
+      "via": "notification"
     }
   }
 }

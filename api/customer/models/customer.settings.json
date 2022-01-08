@@ -8,7 +8,12 @@
   "options": {
     "increments": true,
     "configurable": false,
-    "privateAttributes": ["__v", "createdAt", "updatedAt", "id"],
+    "privateAttributes": [
+      "__v",
+      "createdAt",
+      "updatedAt",
+      "_id"
+    ],
     "draftAndPublish": false
   },
   "pluginOptions": {},
@@ -35,14 +40,19 @@
     "avatar": {
       "model": "file",
       "via": "related",
-      "allowedTypes": ["images"],
+      "allowedTypes": [
+        "images"
+      ],
       "plugin": "upload",
       "required": false,
       "pluginOptions": {}
     },
     "gender": {
       "type": "enumeration",
-      "enum": ["Male", "Female"]
+      "enum": [
+        "Male",
+        "Female"
+      ]
     },
     "notifications": {
       "via": "customer",

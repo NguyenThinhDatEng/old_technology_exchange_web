@@ -41,6 +41,26 @@ const logIn = async (ctx) => {
     });
   }
   if (user) {
+    let notification = null;
+    try {
+      notification = await strapi
+        .query("notification")
+        .findOne({ action: "Sign in" });
+    } catch (error) {
+      console.log(error);
+      return Response.internalServerError(ctx, {
+        data: null,
+        msg: `Server Error`,
+        status: 0,
+      });
+    }
+    // creat a new notification
+    await strapi.query("notification").create({
+      action: notification.action,
+      customer: user.id,
+      content: notification.content,
+    });
+    // create a response
     let data = {
       id: user.id,
       username: user.username,
@@ -98,12 +118,30 @@ const signUp = async (ctx) => {
     });
   }
   if (user) {
+    try {
+      const notification = await strapi
+        .query("notification")
+        .findOne({ action: "Sign up" });
+      // creat a new notification
+      await strapi.query("notification").create({
+        action: notification.action,
+        customer: user.id,
+        content: notification.content,
+      });
+    } catch (error) {
+      console.log(error);
+      return Response.internalServerError(ctx, {
+        data: null,
+        msg: `Server Error`,
+        status: 0,
+      });
+    }
+
     let data = {
       id: user.id,
       username: user.username,
       email: user.email,
       gender: user.gender,
-      dateOfBirth: user.dateOfBirth,
       phoneNumber: user.phoneNumber,
     };
     return Response.created(ctx, {
@@ -223,6 +261,24 @@ const changePassword = async (ctx) => {
     return Response.internalServerError(ctx, {
       msg: "Server Error",
       status: 500,
+    });
+  }
+  try {
+    const notification = await strapi
+      .query("notification")
+      .findOne({ action: "Change password" });
+    // creat a new notification
+    await strapi.query("notification").create({
+      action: notification.action,
+      customer: user.id,
+      content: notification.content,
+    });
+  } catch (error) {
+    console.log(error);
+    return Response.internalServerError(ctx, {
+      data: null,
+      msg: `Server Error`,
+      status: 0,
     });
   }
   return Response.ok(ctx, {
