@@ -9,7 +9,7 @@
     "increments": true,
     "timestamps": true,
     "populateCreatorFields": false,
-    "draftAndPublish": false
+    "privateAttributes": ["_id", "__v"]
   },
   "pluginOptions": {},
   "attributes": {
