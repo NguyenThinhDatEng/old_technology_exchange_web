@@ -24,7 +24,7 @@ const createReportComment = async (
   product_name
 ) => {
   const action = "Comment";
-  const content = `"${username}" commented on your ${product_name}`;
+  const content = `${username} commented on your "${product_name}"`;
   const link = `localhost:3000/products/${product}`;
   return await strapi.query("notification").create({
     action,

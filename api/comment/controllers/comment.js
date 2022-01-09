@@ -71,7 +71,7 @@ const createOne = async (ctx) => {
     return Response.ok(ctx, {
       message: "OK",
       statusCode: 200,
-      data: { product: Product.name, user: User.username, content },
+      data: { product: Product.name, commentator: User.username, content },
     });
   } catch (error) {
     console.log("comment.js", error);

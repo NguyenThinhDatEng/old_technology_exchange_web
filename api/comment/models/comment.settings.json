@@ -7,7 +7,9 @@
   },
   "options": {
     "increments": true,
-    "timestamps": true
+    "timestamps": false,
+    "populateCreatorFields": false,
+    "privateAttributes": ["_id", "__v"]
   },
   "pluginOptions": {},
   "attributes": {
