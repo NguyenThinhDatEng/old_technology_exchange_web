@@ -17,8 +17,13 @@ const createReportChangePassword = async (id) => {
     .create({ action, content, customer: id, link: "#" });
 };
 
-const createReportComment = async (customer, product, username, product_name) => {
-  const action = "New comment";
+const createReportComment = async (
+  customer,
+  product,
+  username,
+  product_name
+) => {
+  const action = "Comment";
   const content = `${username} commented on your ${product_name}`;
   const link = `localhost:3000/products/${product}`;
   return await strapi.query("notification").create({
@@ -29,8 +34,18 @@ const createReportComment = async (customer, product, username, product_name) =>
   });
 };
 
+const createReportCreateProduct = async (customer, product, product_name) => {
+  return await strapi.query("notification").create({
+    action: "Create product",
+    content: `Product ${product_name} has been posted successfully`,
+    customer,
+    link: `localhost:3000/products/${product}`,
+  });
+};
+
 module.exports = {
   createReportSignUp,
   createReportChangePassword,
   createReportComment,
+  createReportCreateProduct,
 };
