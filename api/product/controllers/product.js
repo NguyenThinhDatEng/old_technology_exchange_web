@@ -388,4 +388,53 @@ const createSmartWatch = async (ctx) => {
   });
 };
 
-module.exports = { createPhone, createLaptop, createTablet, createSmartWatch };
+const updateOne = async (ctx) => {
+  const data = ctx.request.body;
+  const url = ctx.request.url.split("/");
+  const id = url[url.length - 1];
+  if (!data)
+    return Response.notFound(ctx, {
+      message: "Missing parameter input!",
+      statusCode: 404,
+    });
+
+  // update information
+  let product = null;
+  try {
+    product = await strapi.query("product").update({ id }, data);
+  } catch (error) {
+    return strapi.services.product.Error500(error, "update information");
+  }
+
+  if (!product) {
+    return Response.badRequest(ctx, {
+      message: "error in product update",
+      statusCode: 400,
+    });
+  }
+
+  // create notification
+  try {
+    await strapi.services.notification.createReportUpdateProduct(
+      product.customer.id,
+      product.id,
+      product.name
+    );
+  } catch (error) {
+    return strapi.services.product.Error500(error, "create notification");
+  }
+
+  return Response.ok(ctx, {
+    data: data,
+    message: "OK",
+    statusCode: 200,
+  });
+};
+
+module.exports = {
+  createPhone,
+  createLaptop,
+  createTablet,
+  createSmartWatch,
+  updateOne,
+};

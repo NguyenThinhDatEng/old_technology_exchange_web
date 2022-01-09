@@ -41,6 +41,7 @@ const signUp = async (ctx) => {
     });
   }
   if (user) {
+    // create notification
     try {
       await strapi.services.notification.createReportSignUp(user.id);
     } catch (error) {
@@ -92,6 +93,24 @@ const logIn = async (ctx) => {
     });
   }
   if (user) {
+    // get the number of product
+    const numberOfProduct = user.products.length;
+    // create a notification
+    if (numberOfProduct)
+      try {
+        await strapi.services.notification.createReportLogIn(
+          user.id,
+          numberOfProduct
+        );
+      } catch (error) {
+        console.log(error);
+        return Response.internalServerError(ctx, {
+          data: null,
+          message: `Server Error`,
+          statusCode: 0,
+        });
+      }
+
     // create a response
     let data = {
       id: user.id,

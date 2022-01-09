@@ -1,6 +1,14 @@
 {
   "routes": [
     {
+      "method": "PUT",
+      "path": "/products/updateOne/:id",
+      "handler": "product.updateOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "POST",
       "path": "/products/createLaptop",
       "handler": "product.createLaptop",
