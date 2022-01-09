@@ -5,22 +5,15 @@
     "icon": "stopwatch",
     "description": ""
   },
-  "options": {},
+  "options": { "privateAttributes": ["_id", "__v"] },
   "attributes": {
     "watch_face_size": {
       "type": "enumeration",
-      "enum": [
-        "for_male",
-        "for_female",
-        "both_male_and_female"
-      ]
+      "enum": ["for_male", "for_female", "both_male_and_female"]
     },
     "watch_case": {
       "type": "enumeration",
-      "enum": [
-        "aluminum",
-        "steel"
-      ]
+      "enum": ["aluminum", "steel"]
     }
   }
 }

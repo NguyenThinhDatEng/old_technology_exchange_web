@@ -8,15 +8,17 @@
   "options": {
     "increments": true,
     "timestamps": true,
-    "draftAndPublish": false
+    "draftAndPublish": false,
+    "privateAttributes": [
+      "_id",
+      "__v",
+      "createdAt",
+      "updatedAt",
+      "categories"
+    ]
   },
   "pluginOptions": {},
   "attributes": {
-    "categories": {
-      "collection": "category",
-      "via": "trademarks",
-      "dominant": true
-    },
     "title": {
       "type": "string",
       "unique": true,
@@ -25,6 +27,10 @@
     "products": {
       "via": "trademark",
       "collection": "product"
+    },
+    "categories_trademarks": {
+      "via": "trademark",
+      "collection": "categories-trademarks"
     }
   }
 }

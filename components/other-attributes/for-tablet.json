@@ -4,7 +4,7 @@
     "name": "for_tablet",
     "icon": "tablet-alt"
   },
-  "options": {},
+  "options": { "privateAttributes": ["_id", "__v"] },
   "attributes": {
     "use_demand": {
       "type": "enumeration",
@@ -17,10 +17,7 @@
     },
     "operating_system": {
       "type": "enumeration",
-      "enum": [
-        "Android",
-        "iPadOS"
-      ]
+      "enum": ["Android", "iPadOS"]
     }
   }
 }

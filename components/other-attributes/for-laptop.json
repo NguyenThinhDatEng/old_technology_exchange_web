@@ -5,7 +5,7 @@
     "icon": "laptop",
     "description": ""
   },
-  "options": {},
+  "options": { "privateAttributes": ["_id", "__v"] },
   "attributes": {
     "CPU": {
       "type": "enumeration",
@@ -23,29 +23,15 @@
     },
     "ram": {
       "type": "enumeration",
-      "enum": [
-        "_4GB",
-        "_8GB",
-        "_16GB"
-      ]
+      "enum": ["_4GB", "_8GB", "_16GB"]
     },
     "memory": {
       "type": "enumeration",
-      "enum": [
-        "HDD",
-        "SSD_128GB",
-        "SSD_256GB",
-        "SSD_512GB",
-        "SSD_1TB"
-      ]
+      "enum": ["HDD", "SSD_128GB", "SSD_256GB", "SSD_512GB", "SSD_1TB"]
     },
     "screen_size": {
       "type": "enumeration",
-      "enum": [
-        "about_13_inch",
-        "about_14_inch",
-        "about_15_inch"
-      ]
+      "enum": ["about_13_inch", "about_14_inch", "about_15_inch"]
     }
   }
 }

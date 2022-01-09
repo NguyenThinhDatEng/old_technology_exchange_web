@@ -5,16 +5,11 @@
     "icon": "mobile",
     "description": ""
   },
-  "options": {},
+  "options": { "privateAttributes": ["_id", "__v"] },
   "attributes": {
     "sweep_frequency": {
       "type": "enumeration",
-      "enum": [
-        "_60Hz",
-        "_90Hz",
-        "_120Hz",
-        "_144Hz"
-      ]
+      "enum": ["_60Hz", "_90Hz", "_120Hz", "_144Hz"]
     },
     "ram": {
       "type": "enumeration",
@@ -27,18 +22,11 @@
     },
     "memory": {
       "type": "enumeration",
-      "enum": [
-        "both_32_and_64GB",
-        "both_128_and_256GB",
-        "more_than_512GB"
-      ]
+      "enum": ["both_32_and_64GB", "both_128_and_256GB", "more_than_512GB"]
     },
     "screen_size": {
       "type": "enumeration",
-      "enum": [
-        "less_than_6_inch",
-        "more_than_6_inch"
-      ]
+      "enum": ["less_than_6_inch", "more_than_6_inch"]
     }
   }
 }

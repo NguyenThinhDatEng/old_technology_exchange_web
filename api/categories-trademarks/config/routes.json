@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/categories-trademarks",
+      "handler": "categories-trademarks.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/categories-trademarks/count",
+      "handler": "categories-trademarks.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/categories-trademarks/:id",
+      "handler": "categories-trademarks.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/categories-trademarks",
+      "handler": "categories-trademarks.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/categories-trademarks/:id",
+      "handler": "categories-trademarks.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/categories-trademarks/:id",
+      "handler": "categories-trademarks.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

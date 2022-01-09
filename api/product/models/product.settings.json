@@ -8,7 +8,13 @@
   "options": {
     "increments": true,
     "timestamps": true,
-    "draftAndPublish": false
+    "privateAttributes": [
+      "_id",
+      "__v",
+      "avatar",
+      "createdAt",
+      "updatedAt"
+    ]
   },
   "pluginOptions": {},
   "attributes": {
@@ -41,9 +47,9 @@
       "pluginOptions": {}
     },
     "category": {
+      "via": "products",
       "private": true,
-      "model": "category",
-      "via": "products"
+      "model": "category"
     },
     "other_attributes": {
       "type": "dynamiczone",

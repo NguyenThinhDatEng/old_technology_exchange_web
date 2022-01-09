@@ -1,0 +1,23 @@
+{
+  "kind": "collectionType",
+  "collectionName": "categories_trademarks",
+  "info": {
+    "name": "categories_trademarks"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "category": {
+      "via": "categories_trademarks",
+      "model": "category"
+    },
+    "trademark": {
+      "via": "categories_trademarks",
+      "model": "trademark"
+    }
+  }
+}
