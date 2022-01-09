@@ -1,6 +1,14 @@
 {
   "routes": [
     {
+      "method": "POST",
+      "path": "/comments/createOne",
+      "handler": "comment.createOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "GET",
       "path": "/comments",
       "handler": "comment.find",

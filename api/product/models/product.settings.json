@@ -68,9 +68,9 @@
       "via": "product",
       "collection": "comment"
     },
-    "notification": {
-      "via": "product",
-      "model": "notification"
+    "customer": {
+      "model": "customer",
+      "via": "products"
     }
   }
 }

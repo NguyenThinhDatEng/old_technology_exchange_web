@@ -1,8 +1,7 @@
-'use strict';
+"use strict";
 
-/**
- * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-services)
- * to customize this service
- */
+const create = async (content, customer, product) => {
+  return strapi.query("comment").create({ content, customer, product });
+};
 
-module.exports = {};
+module.exports = { create };

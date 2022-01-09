@@ -18,8 +18,8 @@
       "required": true
     },
     "product": {
-      "model": "product",
-      "via": "comments"
+      "via": "comments",
+      "model": "product"
     },
     "customer": {
       "model": "customer",

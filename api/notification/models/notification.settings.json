@@ -8,7 +8,8 @@
   "options": {
     "increments": true,
     "timestamps": true,
-    "populateCreatorFields": false
+    "populateCreatorFields": false,
+    "draftAndPublish": false
   },
   "pluginOptions": {},
   "attributes": {
@@ -25,9 +26,8 @@
       "via": "notifications",
       "model": "customer"
     },
-    "product": {
-      "model": "product",
-      "via": "notification"
+    "link": {
+      "type": "string"
     }
   }
 }
