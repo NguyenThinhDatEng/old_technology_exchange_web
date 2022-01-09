@@ -1,5 +1,4 @@
 "use strict";
-require("dotenv").config();
 const Response = require(`../../../utils/response`);
 
 const signUp = async (ctx) => {
@@ -8,7 +7,7 @@ const signUp = async (ctx) => {
   if (!username || !email || !password || !gender || !phoneNumber)
     return Response.notFound(ctx, {
       message: "Missing parameter input!",
-      statusCode: 400,
+      statusCode: 404,
     });
 
   let user = null;

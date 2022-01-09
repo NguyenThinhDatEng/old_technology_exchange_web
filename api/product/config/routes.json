@@ -1,6 +1,38 @@
 {
   "routes": [
     {
+      "method": "POST",
+      "path": "/products/createLaptop",
+      "handler": "product.createLaptop",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/products/createTablet",
+      "handler": "product.createTablet",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/products/createSmartWatch",
+      "handler": "product.createSmartWatch",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/products/createPhone",
+      "handler": "product.createPhone",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "GET",
       "path": "/products",
       "handler": "product.find",
